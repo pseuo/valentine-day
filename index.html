@@ -1,13 +1,12 @@
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="format-detection" content="telephone=no">
   <meta name="format-detection" content="address=no">
   <meta name="applicable-device" content="mobile">
   <meta name="author" content="JackLu">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="screen-orientation" content="portrait">
   <meta name="description" content="记录我们的爱情">
@@ -17,7 +16,7 @@
   <meta property="og:url" content="https://love.liesys.com/">
   <meta property="og:description" content="记录“我们在一起走过点点滴滴”">
   <meta property="og:title" content="轻轻地说一声：“我喜欢你！”">
-  <meta property="og:image" content="https://love.liesys.com/pic-icon.png">
+  <meta property="og:image" content="@pic-icon.png">
   <meta property="og:image:width" content="140">
   <meta property="og:image:height" content="109">
   <title>宝贝,感谢你一直的陪伴！</title>
@@ -32,8 +31,8 @@
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="./css/index.css">
-  <script type="text/javascript" src="./js/jquery.js"></script>
-  <script type="text/javascript" src="./js/three.js"></script>
+  <script src="./js/jquery.js"></script>
+  <script src="./js/three.js"></script>
   <script src="./js/count-time.js"></script>
 
 </head>
@@ -43,11 +42,11 @@
     <i class="iconfont music-close">&#xea28;</i>
     <!-- <audio class="audio" src="./media/dongxi-md.mp3" preload autoplay loop></audio>  -->
     <audio class="audio" preload autoplay loop>
-      <source src="./media/zui-mei-qing-lv-cut.mp3" type="audio/mp3" /> Your browser does not support the audio element.</audio> 
+      <source src="./media/zui-mei-qing-lv-cut.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
   </div>
   <div class="banner ovh">
     <div class="swiper-wrap">
-      <img id="current-img" src="./images/love.jpg" alt="">
+      <img id="current-img" src="./images/love.jpg" alt="Love photo">
       <p class="img-intro">轻轻地说一声：“我喜欢你！”</p>
     </div>
     <!-- <video class="video hide" webkit-playsinline="" playsinline="" x5-playsinline="" controls loop src=""></video> -->
@@ -77,24 +76,22 @@
       </g>
     </svg>
   </p>
-  <p class="our-name self-design">Fan <span>&</span> Ya</p>
-  <script type="text/javascript">
+  <p class="our-name self-design">Bai <span>&</span> Yang</p>
+    <script>
     //设置起始日期
-    countTime('2022/01/01 00:00', 'day', 'hour', 'minute', 'second');
+    countTime('2025/10/18 00:00', 'day', 'hour', 'minute', 'second');
     var days = parseInt($('#day').text());
-    var years = new Date().getFullYear();
-    var month = new Date().getMonth() + 1;
-    var dateDay = new Date().getDate();
+    var now = new Date();
+    var years = now.getFullYear();
+    var month = now.getMonth() + 1;
+    var dateDay = now.getDate();
     // 设置标题
     if (month == 2 && dateDay == 12) {
       $(document).attr("title", "在一起" + parseInt(years - 2017) + "年,始于初见,终于到老。");
     } else if (dateDay == 12) {
       $(document).attr("title", "在一起" + parseInt(days / 30) + "个月,始于初见,终于到老。");
     } else
-    $(document).attr("title", "在一起" + days + "天,始于初见,终于到老。");
-    document.writeln(
-      "<div class=\"snow\" style=\"height:100%; position:fixed; left:0px; top:0px;right:0px; bottom:0px; pointer-events: none;z-index: 9999;\"><canvas width=\"1904\" height=\"913\" style=\"position:absolute;left: 0;top: 0;\"></canvas></div>"
-    );
+      $(document).attr("title", "在一起" + days + "天,始于初见,终于到老。");
 
     $(function () {
 
@@ -139,12 +136,12 @@
       var particles = [];
       var particleImages = [new Image(), new Image(), new Image(), new Image(), new Image()];
 
-      particleImages[0].src = "./images/snowsnow1.png";
-      particleImages[1].src = "./images/snowsnow2.png";
-      particleImages[2].src = "./images/snowsnow3.png";
-      particleImages[3].src = "./images/snowsnow4.png";
-      particleImages[4].src = "./images/snowsnow5.png";
-      var snowNum = 300;
+      particleImages[0].src = "./images/snow/snow1.png";
+      particleImages[1].src = "./images/snow/snow2.png";
+      particleImages[2].src = "./images/snow/snow3.png";
+      particleImages[3].src = "./images/snow/snow4.png";
+      particleImages[4].src = "./images/snow/snow5.png";
+      var snowNum = window.innerWidth < 768 ? 120 : 220;
 
       function init() {
         camera = new THREE.PerspectiveCamera(75, containerWidth / containerHeight, 1, 10000);
@@ -169,7 +166,7 @@
         document.addEventListener("mousemove", onDocumentMouseMove, false);
         document.addEventListener("touchstart", onDocumentTouchStart, false);
         document.addEventListener("touchmove", onDocumentTouchMove, false);
-        setInterval(loop, 1000 / 50)
+        loop();
       }
 
       function onDocumentMouseMove(event) {
@@ -233,11 +230,12 @@
         camera.position.y += (-mouseY - camera.position.y) * 0.005;
         camera.lookAt(scene.position);
         renderer.render(scene, camera)
+        requestAnimationFrame(loop);
       }
       init()
     });
   </script>
-</body>
+  <div class="snow" aria-hidden="true"></div>
 <script>
   var musicDom = document.querySelector('.music');
   // var bannerDom = document.querySelector('.banner');
@@ -282,8 +280,14 @@
           audioDom.pause();
           musicCloseDom.classList.remove('rotate');
       } else {
-          audioDom.play();
-          musicCloseDom.classList.add('rotate');
+          var promise = audioDom.play();
+          if (promise !== undefined) {
+              promise.then(function () {
+                  musicCloseDom.classList.add('rotate');
+              }).catch(function () {
+                  musicCloseDom.classList.remove('rotate');
+              });
+          }
       }
 
       event.preventDefault();
@@ -310,7 +314,7 @@
       
   }
   var imgList = ['./images/love.jpg', './images/1.jpg', './images/2.jpg', './images/3.jpg', './images/1.jpg', './images/love.jpg'];
-  var imgDescList = ['轻轻地说一声：“我喜欢你！”','你往前走，我一定在你身后','You are my today and all of my tomorrows.','你是我的今天和所有的明天','"love you to the moon and back" - 《Guess How Much | Love You》'];
+  var imgDescList = ['轻轻地说一声：“我喜欢你！”','你往前走，我一定在你身后','You are my today and all of my tomorrows.','你是我的今天和所有的明天','"love you to the moon and back" - 《Guess How Much | Love You》','轻轻地说一声：“我喜欢你！”'];
   var isInitImage = false; //循环图片列表之后改了true,取消onload事件;
   var imgIndex = 0;
   function setTimer(){
@@ -330,5 +334,6 @@
   }
   var timer= setTimer();
 </script>
+</body>
 
 </html>
